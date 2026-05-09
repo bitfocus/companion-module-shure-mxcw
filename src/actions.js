@@ -125,9 +125,9 @@ export function updateActions() {
 		},
 		exclusive_mute: {
 			name: 'Assign exclusive mute',
-			options: [this.SEATS_FIELD, Fields.OnOff],
+			options: [this.SEATS_FIELD, this.SEAT_INPUT_FIELD, Fields.OnOff],
 			callback: async ({ options }) => {
-				this.sendCommand(`SET ${options.seat} FLASH ${options.choice}`)
+				this.sendCommand(`SET ${await this.seatNumberFromChoiceOrInput(options)} FLASH ${options.choice}`)
 			},
 		},
 		flash_apt: {
@@ -139,9 +139,9 @@ export function updateActions() {
 		},
 		flash_seat: {
 			name: 'Turn on flash to identify a seat',
-			options: [this.SEATS_A_FIELD, Fields.OnOff],
+			options: [this.SEATS_A_FIELD, this.SEAT_INPUT_FIELD, Fields.OnOff],
 			callback: async ({ options }) => {
-				this.sendCommand(`SET ${options.seat} FLASH ${options.choice}`)
+				this.sendCommand(`SET ${await this.seatNumberFromChoiceOrInput(options)} FLASH ${options.choice}`)
 			},
 		},
 		global_mute: {
@@ -189,31 +189,31 @@ export function updateActions() {
 		},
 		mic_agc: {
 			name: 'Set microphone AGC',
-			options: [this.SEATS_A_FIELD, Fields.OnOff],
+			options: [this.SEATS_A_FIELD, this.SEAT_INPUT_FIELD, Fields.OnOff],
 			callback: async ({ options }) => {
-				this.sendCommand(`SET ${options.seat} MIC_AGC ${options.choice}`)
+				this.sendCommand(`SET ${await this.seatNumberFromChoiceOrInput(options)} MIC_AGC ${options.choice}`)
 			},
 		},
 		mic_gain: {
 			name: 'Set the microphone gain of conference unit',
-			options: [this.SEATS_A_FIELD, Fields.GainSet(10)],
+			options: [this.SEATS_A_FIELD, this.SEAT_INPUT_FIELD, Fields.GainSet(10)],
 			callback: async ({ options }) => {
 				let vol = 30 + options.gain
-				this.sendCommand(`SET ${options.seat} MIC_GAIN ${vol}`)
+				this.sendCommand(`SET ${await this.seatNumberFromChoiceOrInput(options)} MIC_GAIN ${vol}`)
 			},
 		},
 		mic_priority: {
 			name: 'Set microphone priority',
-			options: [this.SEATS_A_FIELD, Fields.Priority],
+			options: [this.SEATS_A_FIELD, this.SEAT_INPUT_FIELD, Fields.Priority],
 			callback: async ({ options }) => {
-				this.sendCommand(`SET ${options.seat} MIC_PRIORITY ${options.val}`)
+				this.sendCommand(`SET ${await this.seatNumberFromChoiceOrInput(options)} MIC_PRIORITY ${options.val}`)
 			},
 		},
 		mic_status: {
 			name: 'Set microphone status',
-			options: [this.SEATS_A_FIELD, Fields.OnOff],
+			options: [this.SEATS_A_FIELD, this.SEAT_INPUT_FIELD, Fields.OnOff],
 			callback: async ({ options }) => {
-				this.sendCommand(`SET ${options.seat} MIC_STATUS ${options.choice}`)
+				this.sendCommand(`SET ${await this.seatNumberFromChoiceOrInput(options)} MIC_STATUS ${options.choice}`)
 			},
 		},
 		next_mic_on: {
@@ -246,17 +246,17 @@ export function updateActions() {
 		},
 		role: {
 			name: 'Set role for device',
-			options: [this.SEATS_A_FIELD, Fields.Role],
+			options: [this.SEATS_A_FIELD, this.SEAT_INPUT_FIELD, Fields.Role],
 			callback: async ({ options }) => {
-				this.sendCommand(`SET ${options.seat} ROLE ${options.choice}`)
+				this.sendCommand(`SET ${await this.seatNumberFromChoiceOrInput(options)} ROLE ${options.choice}`)
 			},
 		},
 		seat_name: {
 			name: 'Set seat name',
 			tooltip: 'UTF-8 characters are allowed except for {,},<,>',
-			options: [this.SEATS_A_FIELD, Fields.Name],
+			options: [this.SEATS_A_FIELD, this.SEAT_INPUT_FIELD, Fields.Name],
 			callback: async ({ options }) => {
-				this.sendCommand(`SET ${options.seat} SEAT_NAME {${options.id}}`)
+				this.sendCommand(`SET ${await this.seatNumberFromChoiceOrInput(options)} SEAT_NAME {${options.id}}`)
 			},
 		},
 		wdu_lock_welcome: {

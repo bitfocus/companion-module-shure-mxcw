@@ -337,6 +337,26 @@ class ShureMxcwInstance extends InstanceBase {
 			default: '1',
 			choices: this.CHOICES_SEATS_A,
 		}
+		this.SEAT_INPUT_FIELD = {
+			type: 'textinput',
+			label: 'Seat Number',
+			useVariables: true,
+			id: 'seatInput',
+			default: '1',
+			isVisible: (options) => options.seat === 'fromInput',
+		}
+	}
+
+	/**
+	 * Return the selected seat number from the options.
+	 * If the selected dropdown option is 'fromInput', it will
+	 * return the value from the seatInput field.
+	 */
+	async seatNumberFromChoiceOrInput(options) {
+		if (options.seat === 'fromInput') {
+			return await this.parseVariablesInString(options.seatInput)
+		}
+		return options.seat
 	}
 
 	/**
@@ -345,6 +365,13 @@ class ShureMxcwInstance extends InstanceBase {
 	setupSeatChoices() {
 		this.CHOICES_SEATS = []
 		this.CHOICES_SEATS_A = []
+
+		const fromInputChoiceOption = {
+			id: 'fromInput',
+			label: 'Seat Number from Input',
+		}
+		this.CHOICES_SEATS.push(fromInputChoiceOption)
+		this.CHOICES_SEATS_A.push(fromInputChoiceOption)
 
 		this.CHOICES_SEATS_A.push({ id: 0, label: 'All Seats' })
 
