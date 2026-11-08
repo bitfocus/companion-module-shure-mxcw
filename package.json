@@ -13,11 +13,11 @@
 	},
 	"license": "MIT",
 	"dependencies": {
-		"@companion-module/base": "~1.10",
+		"@companion-module/base": "~1.15.1",
 		"multi-integer-range": "^5.2.0"
 	},
 	"devDependencies": {
-		"@companion-module/tools": "^2.8.0",
+		"@companion-module/tools": "^2.9.0",
 		"prettier": "^3.0.0"
 	},
 	"prettier": "@companion-module/tools/.prettierrc.json"
